@@ -37,12 +37,7 @@ class Application
     end
 
     def get_country_from_id(id)
-        for c in @countries do
-            if c.id.eql? id
-                return c
-            end
-        end
-        return nil
+        return @countries.find { |c| c.id == id}
     end
 
     def get_country
@@ -81,7 +76,7 @@ while true do
     when 3
         country = app.get_country
         if country != nil
-            app.will_get_loan(country.gdp,country.country_state)
+            app.print_loan_type(country.gdp,country.country_state)
         else
             puts "Country id not present"
         end
@@ -89,7 +84,11 @@ while true do
     when 4
         country = app.get_country
         if country != nil
-            app.can_have_seat_in_UN(country)
+            if app.can_have_seat_in_UN?(country)
+                puts "Country can have seat in UN Security Council "
+            else
+                puts "Country cannot have seat in UN Security Council "
+            end
         else
             puts "Country id not present"
         end
@@ -97,7 +96,11 @@ while true do
     when 5
         country = app.get_country
         if country != nil
-            app.can_win_war(country)
+            if app.can_win_war?(country)
+                puts "Country can win the war "
+            else
+                puts "Country cannot win the war "
+            end
         else
             puts "Country id not present"
         end
